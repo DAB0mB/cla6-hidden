@@ -58,4 +58,22 @@ describe('Cla6', function() {
     expect(obj._hidden).to.not.exist;
     expect(obj._assert).to.not.exist;
   });
+
+  it('should inherit hidden prototype properties', function() {
+    var Parent = Cla6('Parent', {
+      _parentHidden: 'parentHidden',
+      _childHidden: 'parentHidden'
+    });
+
+    var Child = Cla6('Child').extend(Parent, {
+      _childHidden: 'childHidden',
+
+      constructor: function() {
+        expect(this._parentHidden).to.equal('parentHidden');
+        expect(this._childHidden).to.equal('childHidden');
+      }
+    });
+
+    new Child();
+  });
 });
