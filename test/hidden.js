@@ -76,4 +76,27 @@ describe('Cla6', function() {
 
     new Child();
   });
+
+  it('should swap external hidden properties with internal hidden properties', function() {
+    var Klass = Cla6('Klass', {
+      constructor: function() {
+        this._internal = 'internal';
+        this.revealed = 'revealed';
+      },
+
+      assert: function() {
+        expect(this.revealed).to.equal('revealed');
+        expect(this._internal).to.equal('internal');
+        expect(this._external).to.be.not.exist;
+      }
+    });
+
+    var obj = new Klass();
+    obj._external = 'external';
+    obj.assert();
+
+    expect(obj.revealed).to.equal('revealed');
+    expect(obj._external).to.equal('external');
+    expect(obj._internal).to.be.not.exist;
+  });
 });
