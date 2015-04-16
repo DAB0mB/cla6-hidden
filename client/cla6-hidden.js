@@ -9,26 +9,26 @@ var hiddenField = _.createArr(10).reduce(function(result) {
   return result + _.randomDigit();
 }, '__cla6Hidden__');
 
-function Hidden(props) {
-  var _props = {};
+function Hidden(descriptors) {
+  var _descriptors = {};
 
-  props[hiddenField] = {
-    value: _props
+  descriptors[hiddenField] = {
+    value: _descriptors
   };
 
-  Object.keys(props).filter(function(k) {
+  Object.keys(descriptors).filter(function(k) {
     if (k[0] == '_' && k != hiddenField) {
-      _.move(props, _props, k);
-      _props[k].enumerable = true;
+      _.move(descriptors, _descriptors, k);
+      _descriptors[k].enumerable = true;
     } else {
       return true;
     }
   })
   .forEach(function(k) {
     if (k == 'constructor')
-      props.constructor.value = wrapCtor(props.constructor.value);
+      descriptors.constructor.value = wrapCtor(descriptors.constructor.value);
     else
-      wrapDescriptor(props[k]);
+      wrapDescriptor(descriptors[k]);
   });
 }
 
@@ -46,7 +46,7 @@ wrapCtor = function(ctor) {
     if (!this.hasOwnProperty(hiddenField)) {
       var ancestors = _.getAncestors(this);
 
-      var _props = ancestors.map(function(ancestor) {
+      var _descriptors = ancestors.map(function(ancestor) {
         return ancestor.prototype[hiddenField];
       })
       .reduce(function(result, hidden) {
@@ -54,7 +54,7 @@ wrapCtor = function(ctor) {
         return result;
       }, {});
 
-      var hidden = Object.defineProperties({}, _props);
+      var hidden = Object.defineProperties({}, _descriptors);
       Object.defineProperty(this, hiddenField, {value: hidden});
     }
 
