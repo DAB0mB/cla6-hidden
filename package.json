@@ -1,18 +1,16 @@
 {
   "name": "cla6-hidden",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "main": "lib/hidden.js",
   "repository": {
     "type": "git",
     "url": "https://DAB0mB@github.com/DAB0mB/cla6-hidden.git"
   },
-  "dependencies": {
-    "cla6": "~1.1.0"
-  },
   "devDependencies": {
     "browserify": "~9.0.0",
     "chai": "~2.1.0",
     "chai-spies": "~0.5.0",
+    "cla6": "~1.1.0",
     "mocha": "~2.1.0",
     "uglify-js": "~2.4.0"
   },
