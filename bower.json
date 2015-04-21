@@ -1,7 +1,7 @@
 {
   "name": "cla6-hidden",
   "description": "Hidden plugin for Cla6.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "client/cla6-hidden.js",
   "repository": {
     "type": "git",
