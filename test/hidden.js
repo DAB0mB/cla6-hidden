@@ -99,4 +99,28 @@ describe('Cla6', function() {
     expect(obj._external).to.equal('external');
     expect(obj._internal).to.be.not.exist;
   });
+
+  it('should swap hidden properties back if an error was thrown', function() {
+    var Klass = Cla6('Klass', {
+      constructor: function() {
+        this._internal = 'internal';
+        this.revealed = 'revealed';
+      },
+
+      assert: function() {
+        throw Error();
+      }
+    });
+
+    var obj = new Klass();
+    obj._external = 'external';
+    
+    try {
+      obj.assert();
+    } catch (e) {
+      expect(obj.revealed).to.equal('revealed');
+      expect(obj._external).to.equal('external');
+      expect(obj._internal).to.be.not.exist;
+    }
+  });
 });

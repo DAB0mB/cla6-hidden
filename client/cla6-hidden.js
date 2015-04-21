@@ -32,7 +32,7 @@ function Hidden(descriptors) {
   });
 }
 
-wrapDescriptor = function(descriptor) {
+var wrapDescriptor = function(descriptor) {
   ['value', 'get', 'set'].filter(function(k) {
     return typeof descriptor[k] == 'function';
   })
@@ -41,7 +41,7 @@ wrapDescriptor = function(descriptor) {
   });
 };
 
-wrapCtor = function(ctor) {
+var wrapCtor = function(ctor) {
   return function() {
     if (!this.hasOwnProperty(hiddenField)) {
       var ancestors = _.getAncestors(this);
@@ -62,16 +62,23 @@ wrapCtor = function(ctor) {
   };
 };
 
-wrapMethod = function(method) {
+var wrapMethod = function(method) {
   return function() {
+    var result;
+
     swapHidden(this);
-    var result = method.apply(this, arguments);
-    swapHidden(this);
+
+    try {
+      result = method.apply(this, arguments);
+    } finally {
+      swapHidden(this);
+    }
+
     return result;
   };
 };
 
-swapHidden = function(obj) {
+var swapHidden = function(obj) {
   var hidden = obj[hiddenField];
   _.swap(hidden, obj);
 
@@ -93,7 +100,7 @@ var randomDigit = function() {
   return parseInt(Math.random() * 10);
 };
 
-getAncestors = function(obj) {
+var getAncestors = function(obj) {
   var ancestor = Object.getPrototypeOf(obj).constructor;
 
   if (ancestor === Object)
