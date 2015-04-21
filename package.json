@@ -1,5 +1,6 @@
 {
   "name": "cla6-hidden",
+  "description": "Hidden plugin for Cla6.js",
   "version": "1.0.2",
   "main": "lib/hidden.js",
   "repository": {
