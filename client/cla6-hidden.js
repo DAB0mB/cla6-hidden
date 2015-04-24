@@ -9,7 +9,7 @@ var hiddenField = _.createArr(10).reduce(function(result) {
   return result + _.randomDigit();
 }, '__cla6Hidden__');
 
-function Hidden(descriptors) {
+var manipulate = function(descriptors) {
   var _descriptors = {};
 
   descriptors[hiddenField] = {
@@ -90,7 +90,9 @@ var swapHidden = function(obj) {
   });
 };
 
-module.exports = Hidden;
+module.exports = {
+  manipulate: manipulate
+};
 },{"./utils":3}],3:[function(require,module,exports){
 var createArr = function(length) {
   return Array.apply(null, {length: length});
